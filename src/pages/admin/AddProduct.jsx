@@ -24,7 +24,7 @@ export default function AddProduct() {
     e.preventDefault();
 
     if (!formData.imageFile) {
-      alert("Select image");
+      alert("Please select an image");
       return;
     }
 
@@ -42,7 +42,7 @@ export default function AddProduct() {
         createdAt: new Date(),
       });
 
-      alert("Added successfully!");
+      alert("Property added successfully!");
 
       setFormData({
         title: "",
@@ -52,8 +52,8 @@ export default function AddProduct() {
         imageFile: null,
       });
 
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
       alert("Failed to add property");
     } finally {
       setLoading(false);
@@ -61,64 +61,73 @@ export default function AddProduct() {
   };
 
   return (
-    <div>
-
-      <h1 className="text-3xl font-bold mb-6">
-        Add Property
-      </h1>
+    <div className="mt-16 md:mt-0">
+      <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">
+  Add Property
+</h1>
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-white p-6 rounded shadow"
+        className="bg-white p-6 rounded-lg shadow w-full max-w-4xl mx-auto"
       >
+        <div className="space-y-4">
 
-        <input
-          name="title"
-          placeholder="Title"
-          value={formData.title}
-          onChange={handleChange}
-          className="w-full p-3 border"
-        />
+          <input
+            type="text"
+            name="title"
+            placeholder="Property Title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-full p-3 border rounded"
+          />
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          className="w-full p-3 border"
-        />
+          <textarea
+            name="description"
+            placeholder="Property Description"
+            rows="5"
+            value={formData.description}
+            onChange={handleChange}
+            className="w-full p-3 border rounded"
+          />
 
-        <input
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          className="w-full p-3 border"
-        />
+          <input
+            type="text"
+            name="price"
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleChange}
+            className="w-full p-3 border rounded"
+          />
 
-        <input
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          className="w-full p-3 border"
-        />
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={formData.location}
+            onChange={handleChange}
+            className="w-full p-3 border rounded"
+          />
 
-        <input
-          type="file"
-          onChange={(e) =>
-            setFormData({ ...formData, imageFile: e.target.files[0] })
-          }
-          className="w-full p-3 border"
-        />
+          <input
+            type="file"
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                imageFile: e.target.files[0],
+              })
+            }
+            className="w-full p-3 border rounded"
+          />
 
-        <button
-          disabled={loading}
-          className="w-full bg-blue-600 text-white p-3"
-        >
-          {loading ? "Uploading..." : "Add Property"}
-        </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded transition"
+          >
+            {loading ? "Uploading..." : "Add Property"}
+          </button>
 
+        </div>
       </form>
     </div>
   );

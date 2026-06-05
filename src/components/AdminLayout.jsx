@@ -4,12 +4,12 @@ import AdminSidebar from "./AdminSidebar";
 
 export default function AdminLayout() {
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen flex bg-gray-100">
       <AdminSidebar />
 
-      <div className="flex-1 p-6 bg-gray-100">
+      <main className="flex-1 p-4 md:p-6 overflow-x-hidden pt-20 md:pt-6">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

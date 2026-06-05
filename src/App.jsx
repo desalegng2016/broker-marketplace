@@ -22,11 +22,13 @@ function App() {
   const location = useLocation();
 
   const isAdmin = location.pathname.startsWith("/admin");
+  const isLogin = location.pathname === "/login"; // ✅ ADDED
 
   return (
     <div className="min-h-screen flex flex-col">
 
-      {!isAdmin && <Navbar />}
+      {/* ✅ UPDATED CONDITION */}
+      {!isAdmin && !isLogin && <Navbar />}
 
       <div className="flex-1">
         <Routes>
@@ -48,17 +50,17 @@ function App() {
               </ProtectedRoute>
             }
           >
-
             <Route index element={<AdminHome />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="add-product" element={<AddProduct />} />
-
           </Route>
 
         </Routes>
       </div>
 
-      {!isAdmin && <Footer />}
+      {/* ✅ UPDATED CONDITION */}
+      {!isAdmin && !isLogin && <Footer />}
+
     </div>
   );
 }

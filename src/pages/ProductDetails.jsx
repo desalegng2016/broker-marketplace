@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 
+const BROKER_PHONE = "0953782957"; // ✅ change only here
+
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,7 +27,6 @@ const ProductDetails = () => {
         } else {
           setNotFound(true);
         }
-
       } catch (error) {
         console.log("Error:", error);
         setNotFound(true);
@@ -37,7 +38,7 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
-  // LOADING UI (NO FLASH)
+  // LOADING UI
   if (loading) {
     return (
       <div className="p-6 text-center text-gray-500">
@@ -46,7 +47,7 @@ const ProductDetails = () => {
     );
   }
 
-  // NOT FOUND ONLY AFTER LOADING FINISHES
+  // NOT FOUND UI
   if (notFound) {
     return (
       <div className="p-6 text-center">
@@ -61,6 +62,11 @@ const ProductDetails = () => {
     );
   }
 
+  // CALL BROKER
+  const handleCallBroker = () => {
+    window.location.href = `tel:${BROKER_PHONE}`;
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
 
@@ -72,7 +78,7 @@ const ProductDetails = () => {
         ← Back
       </button>
 
-      {/* MAIN LAYOUT */}
+      {/* MAIN CARD */}
       <div className="flex flex-col md:flex-row gap-8 bg-white p-6 rounded-xl shadow-md">
 
         {/* IMAGE */}
@@ -103,8 +109,12 @@ const ProductDetails = () => {
             ${product.price}
           </h2>
 
-          <button className="bg-green-600 text-white px-6 py-3 rounded-lg w-fit">
-            Contact Seller
+          {/* CONTACT BROKER BUTTON */}
+          <button
+            onClick={handleCallBroker}
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg w-fit"
+          >
+            📞 Contact Broker
           </button>
 
         </div>
